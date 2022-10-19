@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "56142775138",
+    "project_id": "gizozoshopx",
+    "storage_bucket": "gizozoshopx.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56142775138:android:fea891c0dba3e0324ee23b",
+        "android_client_info": {
+          "package_name": "com.example.zozoshop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "56142775138-i608il32p0vu28hl9mcs5qa1runapu69.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBx6u97GeFtBOFZbu-NdJHlrymYC3aiHL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "56142775138-i608il32p0vu28hl9mcs5qa1runapu69.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
