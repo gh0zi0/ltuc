@@ -6,6 +6,7 @@ import '../components/bottom_sheet_reset_password.dart';
 import '../components/e_button.dart';
 import '../components/edit_text.dart';
 import '../components/t_button.dart';
+import '../firebase_options.dart';
 
 class RegesterScreen extends StatefulWidget {
   const RegesterScreen({super.key});
@@ -21,7 +22,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
       password = TextEditingController(),
       name = TextEditingController(),
       auth = FirebaseAuth.instance,
-       store = FirebaseFirestore.instance,
+      store = FirebaseFirestore.instance,
       signIn = true,
       loading = false;
 
@@ -70,8 +71,6 @@ class _RegesterScreenState extends State<RegesterScreen> {
   }
 
   authentication() async {
-    // Navigator.popAndPushNamed(context, '/home');
-    // Navigator.popAndPushNamed(context, '/admin');
     if (!key.currentState!.validate()) {
       return;
     }
@@ -79,7 +78,6 @@ class _RegesterScreenState extends State<RegesterScreen> {
       loading = true;
     });
     try {
-      
       if (signIn) {
         await auth.signInWithEmailAndPassword(
             email: email.text, password: password.text);
@@ -95,15 +93,22 @@ class _RegesterScreenState extends State<RegesterScreen> {
           }
         });
       } else {
-        await auth.createUserWithEmailAndPassword(
-            email: email.text, password: password.text);
-        await store
-            .collection('users')
-            .doc(auth.currentUser!.uid)
-            .set({'name': name.text, 'user': true, 'email': email.text});
+      
+        await store.collection('students').add({
+          'name': name.text,
+          'user': true,
+          'email': email.text,
+          'password': password.text
+        });
         // ignore: use_build_context_synchronously
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil('/home', (route) => false);
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Waiting admin to accept your request')));
+        setState(() {
+          loading = false;
+        });
+        // ignore: use_build_context_synchronously
+        // Navigator.of(context)
+        //     .pushNamedAndRemoveUntil('/home', (route) => false);
       }
     } on FirebaseAuthException catch (e) {
       setState(() {

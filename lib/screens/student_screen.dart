@@ -1,29 +1,30 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-import '../components/list_tile_post.dart';
+import 'package:ltuc/components/list_tile_student.dart';
 
 // ignore: must_be_immutable
-class PostScreen extends StatelessWidget {
-  PostScreen({super.key, required this.user});
-  bool user;
+class StudentScreen extends StatelessWidget {
+  const StudentScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('posts').snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection('users')
+          .where('user', isEqualTo: true)
+          .snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        final postData = snapshot.data?.docs;
+        final studentData = snapshot.data?.docs;
         if (snapshot.hasData) {
           return Padding(
             padding: const EdgeInsets.all(10),
             child: ListView.builder(
-              itemCount: postData!.length,
+              itemCount: studentData!.length,
               itemBuilder: (context, index) {
-                return ListTilePost(
-                  list: postData,
+                return ListTileStudent(
+                  list: studentData,
                   index: index,
-                  user: user,
+                  newS: false,
                 );
               },
             ),
