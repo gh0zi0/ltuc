@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ltuc/components/post_container.dart';
@@ -18,8 +19,27 @@ class ListTilePost extends StatefulWidget {
 }
 
 class _ListTilePostState extends State<ListTilePost> {
-  var doubleTap = false;
-  delete(context) async {
+  var doubleTap = false, auth = FirebaseAuth.instance.currentUser!.uid;
+  int likeCount = 0;
+
+  likePost() async {
+    setState(() {
+      doubleTap = true;
+    });
+
+    await FirebaseFirestore.instance
+        .collection('posts')
+        .doc(widget.list![widget.index].id)
+        .collection('likes')
+        .doc(auth)
+        .set({});
+
+    setState(() {
+      doubleTap = false;
+    });
+  }
+
+  deletePost(context) async {
     showDialog(
       context: context,
       builder: (context) {
@@ -56,29 +76,41 @@ class _ListTilePostState extends State<ListTilePost> {
     );
   }
 
+  getLikeCount() async {
+    var like = await FirebaseFirestore.instance
+        .collection('posts')
+        .doc(widget.list![widget.index].id)
+        .collection('likes')
+        .get();
+
+    setState(() {
+      likeCount = like.size;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    getLikeCount();
     return widget.user
-        ? Stack(
-            children: [
-              GestureDetector(
-                onDoubleTap: (() async {
-                  setState(() {
-                    doubleTap = true;
-                  });
-                  await Future.delayed(Duration(milliseconds: 1000));
-                  setState(() {
-                    doubleTap = false;
-                  });
-                }),
-                child: PostContainer(
+        ? GestureDetector(
+            onDoubleTap: (() async {
+              likePost();
+            }),
+            child: Stack(
+              children: [
+                PostContainer(
                   index: widget.index,
                   list: widget.list,
+                  likes: likeCount,
                 ),
-              ),
-              if (doubleTap)
-                Center(child: Lottie.asset('lottie/heart.json', height: 200)),
-            ],
+                if (doubleTap)
+                  Positioned(
+                      left: 0,
+                      top: 0,
+                      child: Lottie.asset('lottie/heart.json',
+                          height: 100, repeat: false)),
+              ],
+            ),
           )
         : Dismissible(
             key: Key(widget.list![widget.index].id),
@@ -95,7 +127,7 @@ class _ListTilePostState extends State<ListTilePost> {
             ),
             confirmDismiss: (direction) async {
               if (direction == DismissDirection.endToStart) {
-                delete(context);
+                deletePost(context);
               } else {
                 showModalBottomSheet(
                   context: context,
@@ -125,6 +157,7 @@ class _ListTilePostState extends State<ListTilePost> {
             child: PostContainer(
               index: widget.index,
               list: widget.list,
+              likes: likeCount,
             ));
   }
 }

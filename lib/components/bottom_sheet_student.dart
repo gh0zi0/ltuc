@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'e_button.dart';
 import 'edit_text.dart';
 
@@ -34,11 +33,16 @@ class _BottomSheetStudentState extends State<BottomSheetStudent> {
 
     try {
       var auth = FirebaseAuth.instance;
-      await auth.createUserWithEmailAndPassword(
-          email: email.text, password: password.text);
+      if (password.text != 'G') {
+        await auth.createUserWithEmailAndPassword(
+            email: email.text, password: password.text);
+      }
+
       await FirebaseFirestore.instance
           .collection('users')
-          .doc(auth.currentUser!.uid)
+          .doc(password.text == 'G'
+              ? widget.data![widget.index].id
+              : auth.currentUser!.uid)
           .set({
         'name': name.text,
         'password': password.text,
@@ -46,7 +50,7 @@ class _BottomSheetStudentState extends State<BottomSheetStudent> {
         'user': true
       });
       await FirebaseFirestore.instance
-          .collection('student')
+          .collection('students')
           .doc(widget.data![widget.index].id)
           .delete();
 
@@ -69,7 +73,6 @@ class _BottomSheetStudentState extends State<BottomSheetStudent> {
       password.text = widget.data![widget.index]['password'];
       email.text = widget.data![widget.index]['email'];
     }
-
     super.initState();
   }
 
@@ -83,9 +86,9 @@ class _BottomSheetStudentState extends State<BottomSheetStudent> {
         key: Gkey,
         child: Column(
           children: [
-            Text(
+            const Text(
               'Add new student',
-              style: const TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             ),
             EditTextFiled(
               hint: 'Student name',

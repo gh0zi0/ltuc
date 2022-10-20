@@ -64,6 +64,7 @@ class _AdminScreenState extends State<AdminScreen>
             ),
           ),
           appBar: AppBar(
+            backgroundColor: Colors.grey.shade900,
             actions: [
               IconButton(
                   onPressed: () {

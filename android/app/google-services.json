@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "56142775138",
-    "project_id": "gizozoshopx",
-    "storage_bucket": "gizozoshopx.appspot.com"
+    "project_number": "508229360208",
+    "project_id": "ltuc-f9f2d",
+    "storage_bucket": "ltuc-f9f2d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:56142775138:android:fea891c0dba3e0324ee23b",
+        "mobilesdk_app_id": "1:508229360208:android:cc10b6ebbd4bcc3bf9cf55",
         "android_client_info": {
-          "package_name": "com.example.zozoshop"
+          "package_name": "com.example.ltuc"
         }
       },
       "oauth_client": [
         {
-          "client_id": "56142775138-i608il32p0vu28hl9mcs5qa1runapu69.apps.googleusercontent.com",
+          "client_id": "508229360208-1sn8591kdi8k3cflrvv6ago7lik60fpv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBx6u97GeFtBOFZbu-NdJHlrymYC3aiHL4"
+          "current_key": "AIzaSyBoTp-JRso9Fzmc6OnkRu7U59sjOKTaW38"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "56142775138-i608il32p0vu28hl9mcs5qa1runapu69.apps.googleusercontent.com",
+              "client_id": "508229360208-1sn8591kdi8k3cflrvv6ago7lik60fpv.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

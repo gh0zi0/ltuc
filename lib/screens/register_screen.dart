@@ -6,7 +6,7 @@ import '../components/bottom_sheet_reset_password.dart';
 import '../components/e_button.dart';
 import '../components/edit_text.dart';
 import '../components/t_button.dart';
-import '../firebase_options.dart';
+
 
 class RegesterScreen extends StatefulWidget {
   const RegesterScreen({super.key});
@@ -34,15 +34,62 @@ class _RegesterScreenState extends State<RegesterScreen> {
 
   signInGoogle() async {
     try {
+      setState(() {
+        loading = true;
+      });
       final GoogleSignInAccount? googleSignInAccount =
           await _googleSignIn.signIn();
+      if (googleSignInAccount == null) {
+        setState(() {
+          loading = false;
+        });
+        return null;
+      }
       final GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount!.authentication;
+          await googleSignInAccount.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
       await auth.signInWithCredential(credential);
+
+      await store
+          .collection('students')
+          .doc(auth.currentUser!.uid)
+          .get()
+          .then((value) async {
+        if (value.exists) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Waiting admin to accept your request')));
+        } else {
+          await store
+              .collection('users')
+              .doc(auth.currentUser!.uid)
+              .get()
+              .then((value) async {
+            if (value.exists) {
+              Navigator.popAndPushNamed(context, '/home');
+            } else {
+              await store
+                  .collection('students')
+                  .doc(auth.currentUser!.uid)
+                  .set({
+                'name': googleSignInAccount.displayName,
+                'user': true,
+                'email': googleSignInAccount.email,
+                'password': 'G'
+              });
+              // ignore: use_build_context_synchronously
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text('Waiting admin to accept your request')));
+            }
+          });
+        }
+      });
+
+      setState(() {
+        loading = false;
+      });
     } on FirebaseAuthException catch (e) {
       setState(() {
         loading = false;
@@ -93,7 +140,6 @@ class _RegesterScreenState extends State<RegesterScreen> {
           }
         });
       } else {
-      
         await store.collection('students').add({
           'name': name.text,
           'user': true,
@@ -107,8 +153,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
           loading = false;
         });
         // ignore: use_build_context_synchronously
-        // Navigator.of(context)
-        //     .pushNamedAndRemoveUntil('/home', (route) => false);
+
       }
     } on FirebaseAuthException catch (e) {
       setState(() {
@@ -226,19 +271,20 @@ class _RegesterScreenState extends State<RegesterScreen> {
                   ],
                 ),
               ),
-              Container(
-                height: 75,
-                width: 75,
-                padding: const EdgeInsets.all(10.0),
-                child: GestureDetector(
-                  onTap: () async {
-                    signInGoogle();
-                  },
-                  child: Image.asset(
-                    'images/g.png',
+              if (!loading)
+                Container(
+                  height: 75,
+                  width: 75,
+                  padding: const EdgeInsets.all(10.0),
+                  child: GestureDetector(
+                    onTap: () async {
+                      signInGoogle();
+                    },
+                    child: Image.asset(
+                      'images/g.png',
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
         ),

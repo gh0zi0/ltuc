@@ -10,10 +10,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  var auth;
-
   check() async {
-    auth = await FirebaseAuth.instance.currentUser?.uid ?? '';
+    String auth;
+    auth = FirebaseAuth.instance.currentUser?.uid ?? '';
     await Future.delayed(const Duration(milliseconds: 1000));
     if (auth != '') {
       // ignore: use_build_context_synchronously

@@ -85,7 +85,7 @@ class _BottomSheetPostState extends State<BottomSheetPost> {
           children: [
             Text(
               '$x post',
-              style: const TextStyle(fontSize: 25),
+              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             ),
             EditTextFiled(
               hint: 'Post title',

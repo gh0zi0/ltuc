@@ -6,12 +6,12 @@ import 'package:ltuc/screens/home.dart';
 import 'package:ltuc/screens/new_students.dart';
 import 'package:ltuc/screens/register_screen.dart';
 import 'package:ltuc/screens/splash_screen.dart';
-import 'firebase_options.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+    // options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(MaterialApp(
     home: const MyApp(),

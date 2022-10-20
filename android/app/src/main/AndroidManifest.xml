@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.zozoshop">
+    package="com.example.ltuc">
    <application
         android:label="ltuc"
         android:name="${applicationName}"

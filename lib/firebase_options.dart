@@ -17,15 +17,24 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,40 +52,11 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCyxQu4x2qiIYH1Q8h_Aao6b5MybMg6KSo',
-    appId: '1:56142775138:web:74bde1b0298b65674ee23b',
-    messagingSenderId: '56142775138',
-    projectId: 'gizozoshopx',
-    authDomain: 'gizozoshopx.firebaseapp.com',
-    storageBucket: 'gizozoshopx.appspot.com',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBx6u97GeFtBOFZbu-NdJHlrymYC3aiHL4',
-    appId: '1:56142775138:android:fea891c0dba3e0324ee23b',
-    messagingSenderId: '56142775138',
-    projectId: 'gizozoshopx',
-    storageBucket: 'gizozoshopx.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAL_uvyciIsv_g3KPQPdqhWgv11qP9llPE',
-    appId: '1:56142775138:ios:56c7b32d546aa4114ee23b',
-    messagingSenderId: '56142775138',
-    projectId: 'gizozoshopx',
-    storageBucket: 'gizozoshopx.appspot.com',
-    iosClientId: '56142775138-c72i6lppmurnr74dhl1fqp2tes73505a.apps.googleusercontent.com',
-    iosBundleId: 'com.example.zozoshop',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAL_uvyciIsv_g3KPQPdqhWgv11qP9llPE',
-    appId: '1:56142775138:ios:56c7b32d546aa4114ee23b',
-    messagingSenderId: '56142775138',
-    projectId: 'gizozoshopx',
-    storageBucket: 'gizozoshopx.appspot.com',
-    iosClientId: '56142775138-c72i6lppmurnr74dhl1fqp2tes73505a.apps.googleusercontent.com',
-    iosBundleId: 'com.example.zozoshop',
+    apiKey: 'AIzaSyBoTp-JRso9Fzmc6OnkRu7U59sjOKTaW38',
+    appId: '1:508229360208:android:cc10b6ebbd4bcc3bf9cf55',
+    messagingSenderId: '508229360208',
+    projectId: 'ltuc-f9f2d',
+    storageBucket: 'ltuc-f9f2d.appspot.com',
   );
 }
