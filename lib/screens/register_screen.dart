@@ -217,7 +217,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
                     padding: const EdgeInsets.only(right: 10),
                     alignment: Alignment.centerRight,
                     child: TButton(
-                        title: 'Forget password?', function: forgetPass)),
+                        title: 'Forgot password?', function: forgetPass)),
               AnimatedOpacity(
                 opacity: signIn ? 0 : 1,
                 duration: const Duration(milliseconds: 500),
