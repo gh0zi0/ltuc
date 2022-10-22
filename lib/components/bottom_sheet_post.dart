@@ -23,7 +23,7 @@ class _BottomSheetPostState extends State<BottomSheetPost> {
       loading = false,
       x = 'Add';
 
-  product() async {
+  addPost() async {
     if (!Gkey.currentState!.validate()) {
       return;
     }
@@ -118,7 +118,7 @@ class _BottomSheetPostState extends State<BottomSheetPost> {
             ),
             loading
                 ? const CircularProgressIndicator()
-                : EButton(title: x, function: product)
+                : EButton(title: x, function: addPost)
           ],
         ),
       ),
