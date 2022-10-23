@@ -82,17 +82,24 @@ class _ListTilePostState extends State<ListTilePost> {
         .doc(widget.list![widget.index].id)
         .collection('likes')
         .get();
+    setState(() {
+      likeCount = like.size;
+    });
+  }
 
-    likeCount = like.size;
+  @override
+  void initState() {
+    getLikeCount();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    getLikeCount();
     return widget.user
         ? GestureDetector(
             onDoubleTap: (() async {
               likePost();
+              getLikeCount();
             }),
             child: Stack(
               children: [
