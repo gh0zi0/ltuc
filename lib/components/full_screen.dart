@@ -13,11 +13,14 @@ class FullScreen extends StatelessWidget {
       ),
       body: Hero(
         tag: arguments['imageUrl'],
-        child: Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage(arguments['imageUrl']))),
+        child: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: NetworkImage(arguments['imageUrl']))),
+          ),
         ),
       ),
     );

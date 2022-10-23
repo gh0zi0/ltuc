@@ -7,7 +7,6 @@ import 'package:ltuc/screens/new_students.dart';
 import 'package:ltuc/screens/register_screen.dart';
 import 'package:ltuc/screens/splash_screen.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

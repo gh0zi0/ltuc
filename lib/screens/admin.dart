@@ -1,3 +1,5 @@
+import 'package:badges/badges.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ltuc/components/bottom_sheet_student.dart';
@@ -66,11 +68,28 @@ class _AdminScreenState extends State<AdminScreen>
           appBar: AppBar(
             backgroundColor: Colors.grey.shade900,
             actions: [
-              IconButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/newStudents');
-                  },
-                  icon: const Icon(Icons.notifications))
+              StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('students')
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  final studentData = snapshot.data?.docs;
+                  if (snapshot.hasData) {
+                    return Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Badge(
+                          showBadge: studentData!.isNotEmpty,
+                          badgeContent: Text(studentData.length.toString()),
+                          child: GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, '/newStudents');
+                              },
+                              child: Icon(Icons.notifications))),
+                    );
+                  }
+                  return Text('loading');
+                },
+              )
             ],
             centerTitle: true,
             title: const Text(
