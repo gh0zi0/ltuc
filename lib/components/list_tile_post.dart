@@ -83,9 +83,7 @@ class _ListTilePostState extends State<ListTilePost> {
         .collection('likes')
         .get();
 
-    setState(() {
-      likeCount = like.size;
-    });
+    likeCount = like.size;
   }
 
   @override
