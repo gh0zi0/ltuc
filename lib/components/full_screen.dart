@@ -8,8 +8,9 @@ class FullScreen extends StatelessWidget {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
     return Scaffold(
-      backgroundColor: Colors.grey.shade900,
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.grey.shade900,
+      ),
       body: Hero(
         tag: arguments['imageUrl'],
         child: Container(

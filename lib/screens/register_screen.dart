@@ -7,7 +7,6 @@ import '../components/e_button.dart';
 import '../components/edit_text.dart';
 import '../components/t_button.dart';
 
-
 class RegesterScreen extends StatefulWidget {
   const RegesterScreen({super.key});
 
@@ -61,6 +60,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
         if (value.exists) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('Waiting admin to accept your request')));
+          auth.signOut();
         } else {
           await store
               .collection('users')
@@ -82,6 +82,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
               // ignore: use_build_context_synchronously
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text('Waiting admin to accept your request')));
+              auth.signOut();
             }
           });
         }
